@@ -7,6 +7,8 @@ from json import load as json_load
 from codecs import open as codecs_open
 from pymongo import MongoClient
 
+from connect import moreover_mongo
+
 def process_topics():
 	"""Processes hand mapped topics and returns them in a dictionary of topic: mozcat"""
 	
@@ -28,11 +30,6 @@ def ngrams(s, n):
 	for i in range(len(s)-n+1):
 		ngrams.append(' '.join(s[i:i+n]))
 	return ngrams
-
-def moreover_mongo():
-	"""Returns a mongo collection. Should probably be a class not a function"""
-	c = MongoClient("ec2-54-87-201-148.compute-1.amazonaws.com")
-	return c['moreover']['docs']
 
 def unique_bigrams_per_topic():
 	"""Finds the most popular bigrams that only exist in a single topic"""
